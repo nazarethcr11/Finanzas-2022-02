@@ -9,7 +9,7 @@ export interface Pagos {
   IGV: number;
   cuota_con_igv: number;
 }
-const ELEMENT_DATA: Pagos[] = [
+const DATA: Pagos[] = [
   {mes: 1, fecha: '10/11/12', deuda: 1.0079, amort: 43, interes: 34, cuota:20 ,IGV: 43, cuota_con_igv:20},
   {mes: 2, fecha: '10/11/12', deuda: 4.0026, amort: 43, interes: 34, cuota:20 ,IGV: 43, cuota_con_igv:20},
   {mes: 3, fecha: '10/11/12', deuda: 6.941, amort: 43, interes: 34, cuota:20 ,IGV: 43, cuota_con_igv:20},
@@ -34,6 +34,6 @@ export class TimelineComponent implements OnInit {
   ngOnInit(): void {
   }
   //Mes	Fecha	Deuda	Amort.	Interés	Cuota	IGV	      Cuota con IGV
-  displayedColumns: string[] = ['mes', 'fecha', 'deuda', 'amort','interes','cuota','igv','cuotaconigv'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['mes', 'fecha', 'deuda', 'amort','interes','cuota','IGV','cuota_con_igv'];
+  dataSource = DATA;
 }

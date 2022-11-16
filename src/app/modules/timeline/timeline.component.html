@@ -19,7 +19,7 @@
         </ng-container>
 
         <!-- Weight Column -->
-        <ng-container matColumnDef="fecha">
+        <ng-container matColumnDef="deuda">
           <th mat-header-cell *matHeaderCellDef> Deuda </th>
           <td mat-cell *matCellDef="let element"> {{element.deuda}} </td>
         </ng-container>
@@ -28,6 +28,26 @@
         <ng-container matColumnDef="amort">
           <th mat-header-cell *matHeaderCellDef> Amortizacion </th>
           <td mat-cell *matCellDef="let element"> {{element.amort}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="interes">
+          <th mat-header-cell *matHeaderCellDef> Intereses </th>
+          <td mat-cell *matCellDef="let element"> {{element.interes}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cuota">
+          <th mat-header-cell *matHeaderCellDef> Cuota </th>
+          <td mat-cell *matCellDef="let element"> {{element.cuota}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IGV">
+          <th mat-header-cell *matHeaderCellDef> IGV </th>
+          <td mat-cell *matCellDef="let element"> {{element.IGV}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cuota_con_igv">
+          <th mat-header-cell *matHeaderCellDef> Cuota con IGV </th>
+          <td mat-cell *matCellDef="let element"> {{element.cuota_con_igv}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
