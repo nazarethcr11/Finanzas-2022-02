@@ -1,0 +1,34 @@
+.example-card {
+  max-width: 400px;
+}
+.card-body{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.main-div{
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: cornsilk;
+}
+.example-full-width {
+  width: 60%;
+}
+.description{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.button-final{
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.mat-button{
+  background: coral;
+  width: 60%;
+}
