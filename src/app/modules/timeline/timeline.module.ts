@@ -3,6 +3,7 @@ import {TimelineComponent} from "./timeline.component";
 import {NgModule} from "@angular/core";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {MatTableModule} from "@angular/material/table";
 
 const timeLineModule: Route[] = [
   {
@@ -19,6 +20,7 @@ const timeLineModule: Route[] = [
     RouterModule.forChild(timeLineModule),
     MatCardModule,
     MatButtonModule,
+    MatTableModule,
   ]
 })
 
