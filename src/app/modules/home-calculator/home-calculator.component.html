@@ -9,7 +9,14 @@
       Por favor complete los siguientes campos para poder calcular el cronograma de pagos referencial.
     </p>
     <div class="card-body">
-
+      <mat-form-field appearance="fill">
+        <mat-label>Escoge una fecha</mat-label>
+        <input [formControl]="dateStart" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Tipo de moneda</mat-label>
         <mat-select [(ngModel)]="selectedMoneda" name="moneda">

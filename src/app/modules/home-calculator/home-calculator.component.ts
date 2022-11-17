@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 interface Moneda {
   value: string;
@@ -15,14 +16,9 @@ interface Bien {
   styleUrls: ['./home-calculator.component.css']
 })
 export class HomeCalculatorComponent implements OnInit {
-  constructor() { }
+  selectedMoneda: string = "";
+  selectedTypeBien: string ="";
 
-  ngOnInit(): void {
-  }
-  // @ts-ignore
-  selectedMoneda: string;
-  // @ts-ignore
-  selectedTypeBien: string;
   monedas: Moneda[] = [
     {value: 'soles-0', viewValue: 'Soles'},
     {value: 'dolares-1', viewValue: 'Dolares'},
@@ -33,5 +29,11 @@ export class HomeCalculatorComponent implements OnInit {
     {value: 'inmueble-2', viewValue: 'Inmueble'},
     {value: 'otros-3', viewValue: 'Otros'},
   ];
+  dateStart = new FormControl(new Date());
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 }
 
