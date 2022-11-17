@@ -118,7 +118,7 @@ export class TimelineComponent implements OnInit {
         const day = hour * 24;
         dias[i]=(fecha[i].getTime()-fecha[i-1].getTime())/day
         diasacumulados[i]=diasacumulados[i-1]+dias[i]
-        factor += (1 / ((1 + this.TEA) ^ (diasacumulados[i] / 360)))
+        factor += (1 / ((1 + this.TEA) ** (diasacumulados[i] / 360)))
       }
     }
     cuota_mensual=(this.Total_monto_operacion-this.Cuota_Inicial)/factor
@@ -131,14 +131,14 @@ export class TimelineComponent implements OnInit {
         cuota[i]=amort[i]+interes[i]
       }
       else if(i!=0){
-        deuda[i]=deuda[i-1]-amort[i-1]
-        interes[i]=deuda[i]*(((1+this.TEA)^(dias[i]/360))-1)
+        deuda[i]=Number((deuda[i-1]-amort[i-1]).toFixed(2))
+        interes[i]=Number((deuda[i]*(((1+this.TEA)**(dias[i]/360))-1)).toFixed(2))
 
-        cuota[i]=cuota_mensual
-        amort[i]=cuota[i]-interes[i]
+        cuota[i]=Number((cuota_mensual).toFixed(2))
+        amort[i]=Number((cuota[i]-interes[i]).toFixed(2))
       }
-      igv[i]=cuota[i]*this.IGV
-      cuota_con_igv[i]=cuota[i]+igv[i]
+      igv[i]=Number((cuota[i]*this.IGV).toFixed(2))
+      cuota_con_igv[i]=Number((cuota[i]+igv[i]).toFixed(2))
       let formattedDate = (moment(fecha[i])).format('DD-MMM-YYYY')
 
       this.tabla_datos.push({IGV: igv[i], amort: amort[i], cuota: cuota[i], cuota_con_igv: cuota_con_igv[i], deuda: deuda[i], fecha: formattedDate, interes: interes[i], mes:mes[i]})
