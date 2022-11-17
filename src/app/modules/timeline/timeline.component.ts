@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { HomeCalculatorComponent} from "../home-calculator/home-calculator.component";
+import {ActivatedRoute} from "@angular/router";
 
 export interface Pagos {
   fecha: string;
@@ -59,10 +60,24 @@ export class TimelineComponent implements OnInit {
   Total_monto_operacion_igv: number = 0;
   Total_monto_operacion: number = 0;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params:any) => {
+      console.log(params);
+      this.Plazo=params.plazoEnMeses;
+      this.TEA=params.tea/100
+      console.log(params.valorBien)
+      this.Valor_del_bien_igv=params.valorBien
+      this.Seguro_igv=params.seguroIgv
+      this.Cuota_inicial_igv=params.cuotaInicial/100
+      this.Comision_de_estructuracion=params.comisionDeEstructuracion/100
+      this.Opcion_de_compra=params.opcionDeCompra/100
+      //this.Mes_tentativo_de_activacion=params.dateStart
+      this.Moneda=params.moneda
+      this.Tipo_de_bien=params.tipoDeBien
+    })
     this.actualizarVariables()
     this.creartabladedatos()
   }
@@ -131,12 +146,16 @@ export class TimelineComponent implements OnInit {
         cuota[i]=amort[i]+interes[i]
       }
       else if(i!=0){
-        deuda[i]=Number((deuda[i-1]-amort[i-1]).toFixed(2))
-        interes[i]=Number((deuda[i]*(((1+this.TEA)**(dias[i]/360))-1)).toFixed(2))
+        deuda[i]=deuda[i-1]-amort[i-1]
+        interes[i]=deuda[i]*(((1+this.TEA)**(dias[i]/360))-1)
 
-        cuota[i]=Number((cuota_mensual).toFixed(2))
-        amort[i]=Number((cuota[i]-interes[i]).toFixed(2))
+        cuota[i]=cuota_mensual
+        amort[i]=cuota[i]-interes[i]
       }
+      deuda[i]=Number((deuda[i]).toFixed(2))
+      interes[i]=Number((interes[i]).toFixed(2))
+      cuota[i]=Number((cuota[i]).toFixed(2))
+      amort[i]=Number((amort[i]).toFixed(2))
       igv[i]=Number((cuota[i]*this.IGV).toFixed(2))
       cuota_con_igv[i]=Number((cuota[i]+igv[i]).toFixed(2))
       let formattedDate = (moment(fecha[i])).format('DD-MMM-YYYY')

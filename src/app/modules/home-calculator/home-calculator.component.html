@@ -9,63 +9,65 @@
       Por favor complete los siguientes campos para poder calcular el cronograma de pagos referencial.
     </p>
     <div class="card-body">
-      <mat-form-field appearance="fill">
-        <mat-label>Escoge una fecha</mat-label>
-        <input [formControl]="dateStart" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Tipo de moneda</mat-label>
-        <mat-select [(ngModel)]="selectedMoneda" name="moneda">
-          <mat-option *ngFor="let moneda of monedas" [value]="moneda.value">
-            {{moneda.viewValue}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Tipo de bien</mat-label>
-        <mat-select [(ngModel)]="selectedTypeBien" name="bienes">
-          <mat-option *ngFor="let bien of bienes" [value]="bien.value">
-            {{bien.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Plazo en meses</mat-label>
-      <input type="number" matInput placeholder="Ex. 20" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Tasa Efectiva Anual(%)</mat-label>
-      <input matInput placeholder="Ex. 15%" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Valor del bien</mat-label>
-      <input matInput placeholder="Ex. 10000" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Seguro con igv</mat-label>
-      <input matInput placeholder="Ex. 10" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Cuota inicial(%)</mat-label>
-      <input matInput placeholder="Ex. 20%" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Comisión de estructuracion(%)</mat-label>
-      <input matInput placeholder="Ex. 10" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Opcion de compra(%)</mat-label>
-      <input matInput placeholder="Ex. 1%" >
-    </mat-form-field>
+      <form [formGroup]="calculateFormGroup">
+        <mat-form-field appearance="fill">
+          <mat-label>Escoge una fecha</mat-label>
+          <input formControlName="dateStart" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Tipo de moneda</mat-label>
+            <mat-select formControlName="moneda" name="moneda">
+              <mat-option *ngFor="let moneda of monedas" [value]="moneda.value">
+                {{moneda.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Tipo de bien</mat-label>
+            <mat-select formControlName="tipoDeBien" name="bienes">
+              <mat-option *ngFor="let bien of bienes" [value]="bien.value">
+                {{bien.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Plazo en meses</mat-label>
+          <input formControlName="plazoEnMeses" type="number" matInput placeholder="Ex. 20" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Tasa Efectiva Anual(%)</mat-label>
+          <input formControlName="tea" type="number" matInput placeholder="Ex. 15%" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Valor del bien</mat-label>
+          <input formControlName="valorBien" type="number" matInput placeholder="Ex. 10000" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Seguro con igv</mat-label>
+          <input formControlName="seguroIgv" type="number" matInput placeholder="Ex. 10" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Cuota inicial(%)</mat-label>
+          <input formControlName="cuotaInicial" type="number" matInput placeholder="Ex. 20%" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Comisión de estructuracion(%)</mat-label>
+          <input formControlName="comisionDeEstructuracion" type="number" matInput placeholder="Ex. 10" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Opcion de compra(%)</mat-label>
+          <input formControlName="opcionDeCompra" type="number" matInput placeholder="Ex. 1%" >
+        </mat-form-field>
+      </form>
 
     </div>
   </mat-card-content>
   <mat-card-actions class="button-final">
-    <button mat-button href="">CALCULATE</button>
+    <button mat-button href="" (click)="calculate()">CALCULATE</button>
   </mat-card-actions>
 </mat-card>
 </div>
