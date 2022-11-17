@@ -35,14 +35,14 @@ export class HomeCalculatorComponent implements OnInit {
   })
 
   monedas: Moneda[] = [
-    {value: 'soles-0', viewValue: 'Soles'},
-    {value: 'dolares-1', viewValue: 'Dolares'},
+    {value: 'soles', viewValue: 'Soles'},
+    {value: 'dolares', viewValue: 'Dolares'},
   ];
   bienes: Bien[] = [
-    {value: 'vehiculo-0', viewValue: 'Vehiculo'},
-    {value: 'maquinaria y equipo-1', viewValue: 'Maquinaria y equipo'},
-    {value: 'inmueble-2', viewValue: 'Inmueble'},
-    {value: 'otros-3', viewValue: 'Otros'},
+    {value: 'vehiculo', viewValue: 'Vehiculo'},
+    {value: 'maquinaria y equipo', viewValue: 'Maquinaria y equipo'},
+    {value: 'inmueble', viewValue: 'Inmueble'},
+    {value: 'otros', viewValue: 'Otros'},
   ];
   dateStart = new FormControl(new Date());
 

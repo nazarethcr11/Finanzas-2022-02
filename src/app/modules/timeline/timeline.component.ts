@@ -66,14 +66,14 @@ export class TimelineComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params:any) => {
       console.log(params);
-      this.Plazo=params.plazoEnMeses;
-      this.TEA=params.tea/100
+      /*this.Plazo=params.plazoEnMeses;
+      this.TEA=params.tea/100*/
       console.log(params.valorBien)
-      this.Valor_del_bien_igv=params.valorBien
-      this.Seguro_igv=params.seguroIgv
-      this.Cuota_inicial_igv=params.cuotaInicial/100
-      this.Comision_de_estructuracion=params.comisionDeEstructuracion/100
-      this.Opcion_de_compra=params.opcionDeCompra/100
+      this.Valor_del_bien_igv=Number(params.valorBien)
+      this.Seguro_igv=Number(params.seguroIgv)
+      this.Cuota_inicial_igv=Number(params.cuotaInicial/100)
+      this.Comision_de_estructuracion=Number(params.comisionDeEstructuracion/100)
+      this.Opcion_de_compra=Number(params.opcionDeCompra/100)
       //this.Mes_tentativo_de_activacion=params.dateStart
       this.Moneda=params.moneda
       this.Tipo_de_bien=params.tipoDeBien
@@ -152,7 +152,7 @@ export class TimelineComponent implements OnInit {
         cuota[i]=cuota_mensual
         amort[i]=cuota[i]-interes[i]
       }
-      deuda[i]=Number((deuda[i]).toFixed(2))
+      deuda[i]=Number((Number(deuda[i])).toFixed(2))
       interes[i]=Number((interes[i]).toFixed(2))
       cuota[i]=Number((cuota[i]).toFixed(2))
       amort[i]=Number((amort[i]).toFixed(2))
