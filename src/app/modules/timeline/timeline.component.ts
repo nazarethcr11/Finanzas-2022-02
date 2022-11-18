@@ -41,16 +41,16 @@ export class TimelineComponent implements OnInit {
   IGV: number= 18/100;
 
   // variables de la formula
-  Mes_tentativo_de_activacion: string = "2022-11-01";
-  Moneda: string = "soles";
-  Tipo_de_bien: string = "inmueble";
-  Plazo: number = 10;
-  TEA: number = 12/100;
-  Valor_del_bien_igv: number = 118000;
+  Mes_tentativo_de_activacion: string = "";
+  Moneda: string = "";
+  Tipo_de_bien: string = "";
+  Plazo: number = 0;
+  TEA: number = 0;
+  Valor_del_bien_igv: number = 0;
   Seguro_igv: number = 0;
-  Cuota_inicial_igv: number = 20/100;
-  Comision_de_estructuracion: number = 1/100;
-  Opcion_de_compra: number = 1/100;
+  Cuota_inicial_igv: number = 0;
+  Comision_de_estructuracion: number = 0;
+  Opcion_de_compra: number = 0;
 
   //datos que pertenecen a la tabla inicial
   Valor_del_bien: number = 0;
@@ -74,9 +74,11 @@ export class TimelineComponent implements OnInit {
       this.Cuota_inicial_igv=Number(params.cuotaInicial/100)
       this.Comision_de_estructuracion=Number(params.comisionDeEstructuracion/100)
       this.Opcion_de_compra=Number(params.opcionDeCompra/100)
-      //this.Mes_tentativo_de_activacion=params.dateStart
+      this.Mes_tentativo_de_activacion=params.dateStart
       this.Moneda=params.moneda
+      this.Plazo=Number(params.plazoEnMeses)
       this.Tipo_de_bien=params.tipoDeBien
+      this.TEA=Number(params.tea/100)
     })
     this.actualizarVariables()
     this.creartabladedatos()
