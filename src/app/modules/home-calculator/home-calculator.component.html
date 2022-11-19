@@ -10,6 +10,17 @@
     </p>
     <div class="card-body">
       <form [formGroup]="calculateFormGroup">
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Precio Venta del Activo</mat-label>
+          <input formControlName="precioVentaActivo" type="number" matInput placeholder="Ex. 118000" >
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Numero de años</mat-label>
+          <input formControlName="nAnios" type="number" matInput placeholder="Ex. 3" >
+        </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Escoge una fecha</mat-label>
           <input formControlName="dateStart" matInput [matDatepicker]="picker">
@@ -18,50 +29,95 @@
           </mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Tipo de moneda</mat-label>
-            <mat-select formControlName="moneda" name="moneda">
-              <mat-option *ngFor="let moneda of monedas" [value]="moneda.value">
-                {{moneda.viewValue}}
-              </mat-option>
-            </mat-select>
-        </mat-form-field>
+
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Tipo de bien</mat-label>
-            <mat-select formControlName="tipoDeBien" name="bienes">
-              <mat-option *ngFor="let bien of bienes" [value]="bien.value">
-                {{bien.viewValue}}
+            <mat-label>Frecuencia de pago</mat-label>
+            <mat-select formControlName="frecuenciaPago" name="frecuenciaPago">
+              <mat-option *ngFor="let frecuencia of frecuencias" [value]="frecuencia.value">
+                {{frecuencia.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Plazo en meses</mat-label>
-          <input formControlName="plazoEnMeses" type="number" matInput placeholder="Ex. 20" >
+          <mat-label>N dias por año</mat-label>
+          <mat-select formControlName="diasAnnio" name="diasAnnio">
+            <mat-option *ngFor="let DiasAnio of diasAnios" [value]="DiasAnio.value">
+              {{DiasAnio.viewValue}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Tasa Efectiva Anual(%)</mat-label>
-          <input formControlName="tea" type="number" matInput placeholder="Ex. 15%" >
+          <input formControlName="tea" type="number" matInput placeholder="Ex. 12" >
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>IGV(%)</mat-label>
+          <input formControlName="igv" type="number" matInput placeholder="Ex. 18" >
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Impuesto a la renta(%)</mat-label>
+          <input formControlName="impuestoRenta" type="number" matInput placeholder="Ex. 20" >
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Valor del bien</mat-label>
-          <input formControlName="valorBien" type="number" matInput placeholder="Ex. 10000" >
+          <mat-label>Recompra(%)</mat-label>
+          <input formControlName="recompra" type="number" matInput placeholder="Ex. 3" >
         </mat-form-field>
+
+        <p class="description">Costes Iniciales</p>
+
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Seguro con igv</mat-label>
-          <input formControlName="seguroIgv" type="number" matInput placeholder="Ex. 10" >
+          <mat-label>Costes Notariales</mat-label>
+          <input formControlName="costesNotariales" type="number" matInput placeholder="Ex. 200" >
         </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Cuota inicial(%)</mat-label>
-          <input formControlName="cuotaInicial" type="number" matInput placeholder="Ex. 20%" >
+          <mat-label>Costes Registrales</mat-label>
+          <input formControlName="costesRegistrales" type="number" matInput placeholder="Ex. 200" >
         </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Comisión de estructuracion(%)</mat-label>
-          <input formControlName="comisionDeEstructuracion" type="number" matInput placeholder="Ex. 10" >
+          <mat-label>Tasación</mat-label>
+          <input formControlName="tasacion" type="number" matInput placeholder="Ex. 200" >
         </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Opcion de compra(%)</mat-label>
-          <input formControlName="opcionDeCompra" type="number" matInput placeholder="Ex. 1%" >
+          <mat-label>Comisión de estudio</mat-label>
+          <input formControlName="comisionEstudio" type="number" matInput placeholder="Ex. 200" >
         </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Comisión de activacion</mat-label>
+          <input formControlName="comisionActivacion" type="number" matInput placeholder="Ex. 200" >
+        </mat-form-field>
+
+        <p class="description">Gastos Periodicos</p>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Comisión periodica</mat-label>
+          <input formControlName="comisionPeriodica" type="number" matInput placeholder="Ex. 20" >
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Seguro de riesgo(%)</mat-label>
+          <input formControlName="seguroRiesgo" type="number" matInput placeholder="Ex. 0.3" >
+        </mat-form-field>
+
+        <p class="description">Costo de oportunidad</p>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Tasa de descuento Ks(%)</mat-label>
+          <input formControlName="tasaDescuentoKs" type="number" matInput placeholder="Ex. 17.5" >
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Tasa de descuento WACC(%)</mat-label>
+          <input formControlName="tasaDescuentoWacc" type="number" matInput placeholder="Ex. 10" >
+        </mat-form-field>
+
       </form>
 
     </div>

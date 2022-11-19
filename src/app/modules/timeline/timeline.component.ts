@@ -2,156 +2,260 @@
 
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { HomeCalculatorComponent} from "../home-calculator/home-calculator.component";
 import {ActivatedRoute} from "@angular/router";
 
-export interface Pagos {
+export interface Pagos_Leasing {
+  Number_table: number;
   fecha: string;
-  mes: number;
-  deuda: number;
-  amort: number;
-  interes:number;
+  saldo_inicial: number;
+  interes: number;
   cuota: number;
-  IGV: number;
-  cuota_con_igv: number;
+  amortizacion: number;
+  seguro:number;
+  costos_y_gastos:number;
+  recompra:number;
+  saldo_final: number;
+  depreciacion: number;
+  ahorro_tributario:number;
+  igv: number;
+  flujo_bruto: number;
+  flujo_con_igv:number;
+  flujo_neto:number
 }
-
+export interface Results {
+  name: string;
+  valor: number;
+}
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
-  displayedColumns: string[] = ['mes', 'fecha', 'deuda', 'amort', 'interes', 'cuota', 'IGV', 'cuota_con_igv'];
-  tabla_datos: Pagos[] = [];
+  displayedColumns: string[] = ['Number_table', 'fecha', 'saldo_inicial', 'interes', 'cuota', 'amortizacion', 'seguro', 'costos_y_gastos', 'recompra', 'saldo_final', 'depreciacion', 'ahorro_tributario', 'igv', 'flujo_bruto', 'flujo_con_igv', 'flujo_neto'];
+  displayedColumns2: string[] = ['Resultados_totales', 'valor']
+  tabla_datos2: Results[] = []
+  tabla_datos: Pagos_Leasing[] = [];
   dataSource = this.tabla_datos;
+  dataSource2 = this.tabla_datos2;
 
-  IGV: number= 18/100;
+  IGV: number = 18 / 100;
+  //Datos del préstamo
+  Dato_precio_venta_activo: number = 0;
+  Dato_n_anios: number = 0;
+  Dato_fecha: string = "";
+  Dato_fecuencia_pago_s: string = "";
+  Dato_fecuencia_pago: number = 0;
+  Dato_n_dias_anio: number = 0;
+  Dato_TEA: number = 0;
+  Dato_IGV: number = 0;
+  Dato_impuesto_renta: number = 0;
+  Dato_recompra: number = 0;
 
-  // variables de la formula
-  Mes_tentativo_de_activacion: string = "";
-  Moneda: string = "";
-  Tipo_de_bien: string = "";
-  Plazo: number = 0;
-  TEA: number = 0;
-  Valor_del_bien_igv: number = 0;
-  Seguro_igv: number = 0;
-  Cuota_inicial_igv: number = 0;
-  Comision_de_estructuracion: number = 0;
-  Opcion_de_compra: number = 0;
+  //Costes iniciales
+  Costes_notariales: number = 0;
+  Costes_registrales: number = 0;
+  Coste_tasacion: number = 0;
+  Coste_comision_estudio: number = 0;
+  Coste_comision_activacion: number = 0;
 
-  //datos que pertenecen a la tabla inicial
-  Valor_del_bien: number = 0;
-  Seguro: number = 0;
-  Cuota_Inicial: number = 0;
-  Riesgo_neto: number = 0;
-  Total_monto_operacion_igv: number = 0;
-  Total_monto_operacion: number = 0;
+  //De los gastos periodiocos
+  Gasto_comision_periodica: number = 0;
+  Gasto_seguro_riesgo: number = 0;
+  //Del costo de oportunidad
+  Oportunidad_tasa_ks: number = 0;
+  Oportunidad_tasa_wacc: number = 0;
+
+  // Resultados varibles
+  Resultado_IGV: number = 0;
+  Resultado_valor_venta_activo: number = 0;
+  Resultado_monto_leasing: number = 0;
+  Resultado_TEP: number = 0;
+  Resultado_n_cuotas_anio: number = 0;
+  Resultado_total_cuotas: number = 0;
+  Resultado_seguro_riesgo: number = 0;
+
+  //RESULTADO SEGUNDA TABLA- CONTADORES
+  Total_Intereses: number = 0
+  Total_Amortizacion_del_capital: number = 0
+  Total_Seguro_contra_todo_riesgo: number = 0
+  Total_Comisiones_periodicas: number = 0
+  Total_Recompra: number = 0
+  Total_Desembolso: number = 0
+
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params:any) => {
+    this.route.queryParams.subscribe((params: any) => {
       console.log(params);
-      /*this.Plazo=params.plazoEnMeses;
-      this.TEA=params.tea/100*/
       console.log(params.valorBien)
-      this.Valor_del_bien_igv=Number(params.valorBien)
-      this.Seguro_igv=Number(params.seguroIgv)
-      this.Cuota_inicial_igv=Number(params.cuotaInicial/100)
-      this.Comision_de_estructuracion=Number(params.comisionDeEstructuracion/100)
-      this.Opcion_de_compra=Number(params.opcionDeCompra/100)
-      this.Mes_tentativo_de_activacion=params.dateStart
-      this.Moneda=params.moneda
-      this.Plazo=Number(params.plazoEnMeses)
-      this.Tipo_de_bien=params.tipoDeBien
-      this.TEA=Number(params.tea/100)
+      this.Dato_precio_venta_activo = Number(params.precioVentaActivo)
+      this.Dato_n_anios = Number(params.nAnios)
+      this.Dato_fecha = params.dateStart
+      this.Dato_fecuencia_pago_s = params.frecuenciaPago
+      this.Dato_n_dias_anio = Number(params.diasAnnio)
+      this.Dato_TEA = Number(params.tea / 100)
+      this.Dato_IGV = Number(params.igv / 100)
+      this.Dato_impuesto_renta = Number(params.impuestoRenta / 100)
+      this.Dato_recompra = Number(params.recompra / 100)
+      this.Costes_notariales = Number(params.costesNotariales)
+      this.Costes_registrales = Number(params.costesRegistrales)
+      this.Coste_tasacion = Number(params.tasacion)
+      this.Coste_comision_estudio = Number(params.comisionEstudio)
+      this.Coste_comision_activacion = Number(params.comisionActivacion)
+      this.Gasto_comision_periodica = Number(params.comisionPeriodica)
+      this.Gasto_seguro_riesgo = Number(params.seguroRiesgo / 100)
+      this.Oportunidad_tasa_ks = Number(params.tasaDescuentoKs / 100)
+      this.Oportunidad_tasa_wacc = Number(params.tasaDescuentoWacc / 100)
     })
     this.actualizarVariables()
     this.creartabladedatos()
   }
 
   actualizarVariables() {
-    //valor_del_bien
-    if (this.Tipo_de_bien == "inmueble") {
-      this.Valor_del_bien = this.Valor_del_bien_igv
-    } else {
-      this.Valor_del_bien = this.Valor_del_bien_igv / (1 + this.IGV)
+    //
+    if (this.Dato_fecuencia_pago_s == "quincenal") {
+      this.Dato_fecuencia_pago = 15
+    } else if (this.Dato_fecuencia_pago_s == "mensual") {
+      this.Dato_fecuencia_pago = 30
+    } else if (this.Dato_fecuencia_pago_s == "bimestral") {
+      this.Dato_fecuencia_pago = 60
+    } else if (this.Dato_fecuencia_pago_s == "trimestral") {
+      this.Dato_fecuencia_pago = 90
+    } else if (this.Dato_fecuencia_pago_s == "cuatrimestral") {
+      this.Dato_fecuencia_pago = 120
+    } else if (this.Dato_fecuencia_pago_s == "semestral") {
+      this.Dato_fecuencia_pago = 180
+    } else if (this.Dato_fecuencia_pago_s == "anual") {
+      this.Dato_fecuencia_pago = 360
     }
-    //seguro
-    this.Seguro = this.Seguro_igv / (1 + this.IGV)
-    //cuota inicial sin igv
 
-    this.Cuota_Inicial = (this.Valor_del_bien + this.Seguro) * this.Cuota_inicial_igv
-    //riesgo neto
-    this.Riesgo_neto = this.Valor_del_bien + this.Seguro + this.Cuota_Inicial
-    //total monto operacion igv
-    this.Total_monto_operacion_igv = this.Valor_del_bien_igv + this.Seguro_igv
-    //total monto operacion
-    this.Total_monto_operacion = this.Valor_del_bien + this.Seguro
+    this.Resultado_IGV = this.Dato_precio_venta_activo / (1 + this.Dato_IGV) * this.Dato_IGV
+    this.Resultado_valor_venta_activo = this.Dato_precio_venta_activo - this.Resultado_IGV
+    this.Resultado_monto_leasing = this.Resultado_valor_venta_activo + (this.Costes_notariales + this.Costes_registrales + this.Coste_tasacion + this.Coste_comision_estudio + this.Coste_comision_activacion)
+    this.Resultado_TEP = ((1 + this.Dato_TEA) ** (this.Dato_fecuencia_pago / this.Dato_n_dias_anio)) - 1
+    this.Resultado_n_cuotas_anio = this.Dato_n_dias_anio / this.Dato_fecuencia_pago
+    this.Resultado_total_cuotas = this.Resultado_n_cuotas_anio * this.Dato_n_anios
+    this.Resultado_seguro_riesgo = this.Gasto_seguro_riesgo * this.Dato_precio_venta_activo / this.Resultado_n_cuotas_anio
   }
 
   creartabladedatos() {
-    var cuota_mensual: number=0;
-
+    //'N', 'fecha', 'saldo_inicial', 'interes', 'cuota', 'amortizacion', 'seguro', 'costos_y_gastos'
+    //'recompra','saldo_final','depreciacion','ahorro_tributario','igv','flujo_bruto','flujo_con_igv','flujo_neto'
     var mes = [];
     var fecha = [];
-    var deuda: number[] = [];
-    var amort=[];
-    let interes:number[]=[];
-    var cuota=[];
-    var igv=[];
-    var cuota_con_igv=[];
+    var saldo_inicial = [];
+    var interes = [];
+    var cuota = [];
+    var amortizacion = [];
+    var seguro = [];
+    var costos_y_gastos = [];
+    var recompra = [];
+    var saldo_final: number[] = [];
+    var depreciacion = [];
+    var ahorro_tributario = [];
+    var igv = [];
+    var flujo_bruto = [];
+    var flujo_con_igv = [];
+    var flujo_neto = [];
 
-    var dias=[];
-    var diasacumulados:number[]=[]
-    var factor: number=0;
-    for (let i = 0; i < this.Plazo+1; i++) {
+
+    for (let i = 0; i < this.Resultado_total_cuotas + 1; i++) {
       mes[i] = i;
-      var fecha_aux = new Date(this.Mes_tentativo_de_activacion);
-      fecha_aux.setMonth(fecha_aux.getMonth()+i);
-      fecha[i]=fecha_aux;
-      if (i==0){
-        dias[i]=0
-        diasacumulados[i]=0
-        factor=0
+      var fecha_aux = new Date(this.Dato_fecha);
+      fecha_aux.setMonth(fecha_aux.getMonth() + i);
+      fecha[i] = fecha_aux;
+      if (i == 0) {
+        saldo_inicial[0] = 0
+        interes[0] = 0
+        cuota[0] = 0
+        amortizacion[0] = 0
+        seguro[0] = 0
+        costos_y_gastos[0] = 0
+        recompra[0] = 0
+        saldo_final[0] = this.Resultado_monto_leasing
+        depreciacion[0] = 0
+        ahorro_tributario[0] = 0
+        igv[0] = 0
+        flujo_bruto[0] = this.Resultado_monto_leasing
+        flujo_con_igv[0] = this.Resultado_monto_leasing
+        flujo_neto[0] = this.Resultado_monto_leasing
+      } else if (i != 0) {
+        saldo_inicial[i] = saldo_final[i - 1]
+        interes[i] = saldo_inicial[i] * this.Resultado_TEP
+        amortizacion[i] = this.Resultado_monto_leasing / this.Resultado_total_cuotas
+        cuota[i] = interes[i] + amortizacion[i]
+        seguro[i] = this.Resultado_seguro_riesgo
+        costos_y_gastos[i] = this.Gasto_comision_periodica
+        recompra[i] = 0
+        if (i == this.Resultado_total_cuotas) {
+          recompra[i] = this.Dato_recompra * this.Resultado_valor_venta_activo
+        }
+        saldo_final[i] = saldo_inicial[i] - amortizacion[i]
+        depreciacion[i] = this.Resultado_valor_venta_activo / this.Resultado_total_cuotas
+        ahorro_tributario[i] = (interes[i] + seguro[i] + costos_y_gastos[i] + depreciacion[i]) * this.Dato_impuesto_renta
+        igv[i] = (cuota[i] + seguro[i] + costos_y_gastos[i] + recompra[i]) * this.Dato_IGV
+        flujo_bruto[i] = cuota[i] + seguro[i] + costos_y_gastos[i] + recompra[i]
+        flujo_con_igv[i] = flujo_bruto[i] + igv[i]
+        flujo_neto[i] = flujo_bruto[i] - ahorro_tributario[i]
       }
-      else if (i!=0){
-        const minute = 1000 * 60;
-        const hour = minute * 60;
-        const day = hour * 24;
-        dias[i]=(fecha[i].getTime()-fecha[i-1].getTime())/day
-        diasacumulados[i]=diasacumulados[i-1]+dias[i]
-        factor += (1 / ((1 + this.TEA) ** (diasacumulados[i] / 360)))
-      }
+      //contadores
+      this.Total_Intereses += interes[i]
+      this.Total_Amortizacion_del_capital += amortizacion[i]
+      this.Total_Recompra += recompra[i]
+      this.Total_Seguro_contra_todo_riesgo += seguro[i]
+      this.Total_Comisiones_periodicas += costos_y_gastos[i]
     }
-    cuota_mensual=(this.Total_monto_operacion-this.Cuota_Inicial)/factor
-    //segundo for para terminar de completar la tabla y lo paso a la lista principal
-    for (let i = 0; i < this.Plazo+1; i++) {
-      if (i==0){
-        deuda[i]=this.Total_monto_operacion
-        amort[i]=this.Cuota_Inicial
-        interes[i]=0
-        cuota[i]=amort[i]+interes[i]
-      }
-      else if(i!=0){
-        deuda[i]=deuda[i-1]-amort[i-1]
-        interes[i]=deuda[i]*(((1+this.TEA)**(dias[i]/360))-1)
+    //contador final
+    this.Total_Desembolso = this.Total_Intereses + this.Total_Amortizacion_del_capital + this.Total_Recompra + this.Total_Seguro_contra_todo_riesgo + this.Total_Comisiones_periodicas
+    //for para fixear datos
+    for (let i = 0; i < this.Resultado_total_cuotas + 1; i++) {
 
-        cuota[i]=cuota_mensual
-        amort[i]=cuota[i]-interes[i]
-      }
-      deuda[i]=Number((Number(deuda[i])).toFixed(2))
-      interes[i]=Number((interes[i]).toFixed(2))
-      cuota[i]=Number((cuota[i]).toFixed(2))
-      amort[i]=Number((amort[i]).toFixed(2))
-      igv[i]=Number((cuota[i]*this.IGV).toFixed(2))
-      cuota_con_igv[i]=Number((cuota[i]+igv[i]).toFixed(2))
+      interes[i] = Number((Number(interes[i])).toFixed(2))
+      ahorro_tributario[i] = Number((Number(ahorro_tributario[i])).toFixed(2))
+      amortizacion[i] = Number((Number(amortizacion[i])).toFixed(2))
+      costos_y_gastos[i] = Number((Number(costos_y_gastos[i])).toFixed(2))
+      cuota[i] = Number((Number(cuota[i])).toFixed(2))
+      depreciacion[i] = Number((Number(depreciacion[i])).toFixed(2))
+      flujo_bruto[i] = Number((Number(flujo_bruto[i])).toFixed(2))
+      flujo_con_igv[i] = Number((Number(flujo_con_igv[i])).toFixed(2))
+      flujo_neto[i] = Number((Number(flujo_neto[i])).toFixed(2))
+      igv[i] = Number((Number(igv[i])).toFixed(2))
+      recompra[i] = Number((Number(recompra[i])).toFixed(2))
+      saldo_final[i] = Number((Number(saldo_final[i])).toFixed(2))
+      saldo_inicial[i] = Number((Number(saldo_inicial[i])).toFixed(2))
+      seguro[i] = Number((Number(seguro[i])).toFixed(2))
+
       let formattedDate = (moment(fecha[i])).format('DD-MMM-YYYY')
+      //'N', 'fecha', 'saldo_inicial', 'interes', 'cuota', 'amortizacion', 'seguro', 'costos_y_gastos'
+      //'recompra','saldo_final','depreciacion','ahorro_tributario','igv','flujo_bruto','flujo_con_igv','flujo_neto'
+      this.tabla_datos.push({
+        Number_table: mes[i],
+        fecha: formattedDate,
+        interes: interes[i],
+        ahorro_tributario: ahorro_tributario[i],
+        amortizacion: amortizacion[i],
+        costos_y_gastos: costos_y_gastos[i],
+        cuota: cuota[i],
+        depreciacion: depreciacion[i],
+        flujo_bruto: flujo_bruto[i],
+        flujo_con_igv: flujo_con_igv[i],
+        flujo_neto: flujo_neto[i],
+        igv: igv[i],
+        recompra: recompra[i],
+        saldo_final: saldo_final[i],
+        saldo_inicial: saldo_inicial[i],
+        seguro: seguro[i],
+      })
 
-      this.tabla_datos.push({IGV: igv[i], amort: amort[i], cuota: cuota[i], cuota_con_igv: cuota_con_igv[i], deuda: deuda[i], fecha: formattedDate, interes: interes[i], mes:mes[i]})
     }
+    this.tabla_datos2 = [
+      {name: "", valor: this.Total_Seguro_contra_todo_riesgo},
+
+    ];
+
 
   }
 }
