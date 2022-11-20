@@ -24,16 +24,25 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Precio Venta del Activo</mat-label>
           <input formControlName="precioVentaActivo" type="number" matInput placeholder="Ex. 118000" >
+          <mat-error *ngIf="calculateFormGroup.get('precioVentaActivo')?.hasError('required')">
+            Precio de Venta del Activo is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Numero de años</mat-label>
           <input formControlName="nAnios" type="number" matInput placeholder="Ex. 3" >
+          <mat-error *ngIf="calculateFormGroup.get('nAnios')?.hasError('required')">
+            Numero de años is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Escoge una fecha</mat-label>
           <input formControlName="dateStart" matInput [matDatepicker]="picker">
+          <mat-error *ngIf="calculateFormGroup.get('dateStart')?.hasError('required')">
+            Date Start is <strong>required</strong>
+          </mat-error>
           <mat-datepicker-toggle matSuffix [for]="picker">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
@@ -47,6 +56,9 @@
                 {{frecuencia.viewValue}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="calculateFormGroup.get('frecuenciaPago')?.hasError('required')">
+              Frecuencia de Pago is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
@@ -56,25 +68,41 @@
               {{DiasAnio.viewValue}}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="calculateFormGroup.get('diasAnnio')?.hasError('required')">
+            N dias Año is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Tasa Efectiva Anual(%)</mat-label>
           <input formControlName="tea" type="number" matInput placeholder="Ex. 12" >
+          <mat-error *ngIf="calculateFormGroup.get('tea')?.hasError('required')">
+            TEA is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>IGV(%)</mat-label>
           <input formControlName="igv" type="number" matInput placeholder="Ex. 18" >
+          <mat-error *ngIf="calculateFormGroup.get('igv')?.hasError('required')">
+            IGV is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Impuesto a la renta(%)</mat-label>
           <input formControlName="impuestoRenta" type="number" matInput placeholder="Ex. 20" >
+          <mat-error *ngIf="calculateFormGroup.get('impuestoRenta')?.hasError('required')">
+            Impuesto a la Renta is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
+
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Recompra(%)</mat-label>
           <input formControlName="recompra" type="number" matInput placeholder="Ex. 3" >
+          <mat-error *ngIf="calculateFormGroup.get('recompra')?.hasError('required')">
+            Recompra is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <p class="description">Costes Iniciales</p>
@@ -82,26 +110,41 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Costes Notariales</mat-label>
           <input formControlName="costesNotariales" type="number" matInput placeholder="Ex. 200" >
+          <mat-error *ngIf="calculateFormGroup.get('costesNotariales')?.hasError('required')">
+            Costes Notariales is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Costes Registrales</mat-label>
           <input formControlName="costesRegistrales" type="number" matInput placeholder="Ex. 200" >
+          <mat-error *ngIf="calculateFormGroup.get('costesRegistrales')?.hasError('required')">
+            Costes Registrales is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Tasación</mat-label>
           <input formControlName="tasacion" type="number" matInput placeholder="Ex. 200" >
+          <mat-error *ngIf="calculateFormGroup.get('tasacion')?.hasError('required')">
+            Tasacion is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Comisión de estudio</mat-label>
           <input formControlName="comisionEstudio" type="number" matInput placeholder="Ex. 200" >
+          <mat-error *ngIf="calculateFormGroup.get('comisionEstudio')?.hasError('required')">
+            Comision Estudio is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Comisión de activacion</mat-label>
           <input formControlName="comisionActivacion" type="number" matInput placeholder="Ex. 200" >
+          <mat-error *ngIf="calculateFormGroup.get('comisionActivacion')?.hasError('required')">
+           Comision Activacion is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <p class="description">Gastos Periodicos</p>
@@ -109,11 +152,17 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Comisión periodica</mat-label>
           <input formControlName="comisionPeriodica" type="number" matInput placeholder="Ex. 20" >
+          <mat-error *ngIf="calculateFormGroup.get('comisionPeriodica')?.hasError('required')">
+            Comision Periodica is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Seguro de riesgo(%)</mat-label>
           <input formControlName="seguroRiesgo" type="number" matInput placeholder="Ex. 0.3" >
+          <mat-error *ngIf="calculateFormGroup.get('seguroRiesgo')?.hasError('required')">
+            Seguro Riesgo is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
       </form>
