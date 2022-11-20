@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {UserService} from "../../services/user.services";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-home',

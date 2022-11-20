@@ -252,6 +252,8 @@ export class TimelineComponent implements OnInit {
   }
 
   guardar(){
-    
+    this.tabla_datos.forEach(element => {
+      console.log(element)
+    });
   }
 }
