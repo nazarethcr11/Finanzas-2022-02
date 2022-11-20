@@ -1,0 +1,49 @@
+.example-card {
+  width: 95%;
+}
+.button-final{
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.button-final-final{
+  background: #3f51b5;
+  width: 30%;
+  color:white;
+}
+.main-div{
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  height: auto;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e0ecf4;
+}
+.extradiv{
+  width:40%;
+  padding-left: 1vh;
+  padding-top: 1vh;
+  margin-top: 4vh;
+  border-radius: 6px;
+  border-width: 2px;
+  border-style: double;
+  border-color: dimgrey;
+}
+table {
+  width: 100%;
+}
+
+#contenedor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#contenedor > div {
+  width: 50%;
+}
+.mat-spacer{
+  flex: 1 1 auto;
+}

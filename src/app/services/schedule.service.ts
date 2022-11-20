@@ -49,4 +49,10 @@ export class ScheduleService {
         catchError(this.handleError));
   }
 
+  range(initialId: number, finalId: number): Observable<Schedule[]> {
+    return this.http.get<Schedule[]>(`${this.basePath}/range/${initialId}/${finalId}`)
+      .pipe(
+        catchError(this.handleError));
+  }
+
 }

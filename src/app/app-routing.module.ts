@@ -6,5 +6,6 @@ export const appRoutes: Route[] = [
   { path: 'timeline', loadChildren: () => import('src/app/modules/timeline/timeline.module').then(m => m.TimelineModule)},
   { path: 'home', loadChildren: () => import('src/app/modules/home/home.module').then(m => m.HomeModule)},
   { path: 'register', loadChildren: () => import('src/app/modules/register/register.module').then(m => m.RegisterModule)},
-  { path: 'registros', loadChildren: () => import('src/app/modules/registros/registros.module').then(m => m.RegistrosModule),}
+  { path: 'registros', loadChildren: () => import('src/app/modules/registros/registros.module').then(m => m.RegistrosModule),},
+  { path: 'timeline-view', loadChildren: () => import('src/app/modules/timeline-view/timeline-view.module').then(m => m.TimelineViewModule)},
 ];

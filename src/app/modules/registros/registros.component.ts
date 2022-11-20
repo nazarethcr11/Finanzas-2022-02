@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RecordScheduleService} from "../../services/recordSchedule.service";
+import {Router} from "@angular/router";
 
 export interface Section {
   id: number;
@@ -17,15 +18,17 @@ export interface Section {
 export class RegistrosComponent implements OnInit {
   folders: Section[] = [ ];
 
-  constructor(private recordScheduleService: RecordScheduleService) { }
+  constructor(private recordScheduleService: RecordScheduleService, private router: Router) { }
 
   ngOnInit(): void {
     this.recordScheduleService.getAll().subscribe(
       (response:any) => {
-        console.log(response);
         response.forEach((element:any) => {
-          this.folders.push({id: element.id, name: element.fecha
-            , updated: element.fecha});
+          if(element.usuarioid == localStorage.getItem('id')){
+            this.folders.push({id: element.id, name: element.fecha
+              , updated: element.fecha});
+          }
+
         });
       });
 
@@ -34,8 +37,10 @@ export class RegistrosComponent implements OnInit {
     this.recordScheduleService.getAll().subscribe(
       (response:any) => {
         response.forEach((element:any) => {
-          if(element.id == id){
-
+          if(element.id == id) {
+            localStorage.setItem('recordScheduleId', element.id);
+            // go to timeline-view
+            this.router.navigate(['/timeline-view']);
           }
         });
       }
