@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {RecordScheduleService} from "../../services/recordSchedule.service";
 
 export interface Section {
+  id: number;
   name: string;
   updated: Date;
 }
@@ -15,14 +17,29 @@ export interface Section {
 export class RegistrosComponent implements OnInit {
   folders: Section[] = [ ];
 
-  constructor() { }
+  constructor(private recordScheduleService: RecordScheduleService) { }
 
   ngOnInit(): void {
-    this.folders.push({name:"11:58",updated:new Date('1/1/16')})
-    this.folders.push({name:"12:48",updated:new Date('1/1/16')})
-    this.folders.push({name:"13:01",updated:new Date('1/1/16')})
-    this.folders.push({name:"14:20",updated:new Date('1/1/16')})
+    this.recordScheduleService.getAll().subscribe(
+      (response:any) => {
+        console.log(response);
+        response.forEach((element:any) => {
+          this.folders.push({id: element.id, name: element.fecha
+            , updated: element.fecha});
+        });
+      });
 
+  }
+  goToSchedule(id: number){
+    this.recordScheduleService.getAll().subscribe(
+      (response:any) => {
+        response.forEach((element:any) => {
+          if(element.id == id){
+
+          }
+        });
+      }
+    )
   }
 
 }

@@ -88,8 +88,6 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
-      console.log(params.valorBien)
       this.Dato_precio_venta_activo = Number(params.precioVentaActivo)
       this.Dato_n_anios = Number(params.nAnios)
       this.Dato_fecha = params.dateStart
@@ -265,10 +263,12 @@ export class TimelineComponent implements OnInit {
 
       this.scheduleService.create(element).subscribe(
         (response:any) => {
-          if(element.number_table == 0){
+          // if first element
+
+          if(element.number_table==0){
             // date now string
             let date = new Date()
-            let dateString = this.datePipe.transform(date, 'yyyy-MM-dd')!!;
+            let dateString = this.datePipe.transform(date, 'yyyy-MM-dd hh:mm')!!;
             let recordSchedulePostModel: RecordSchedulePost = {
               usuarioid: Number(localStorage.getItem('id')),
               total_intereses: this.Total_Intereses,

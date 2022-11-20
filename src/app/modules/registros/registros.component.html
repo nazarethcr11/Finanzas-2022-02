@@ -16,7 +16,7 @@
     <mat-card-content>
       <mat-list>
         <mat-list-item *ngFor="let folder of folders">
-          <button mat-button class="botones_contenedor">
+          <button mat-button class="botones_contenedor" (click)="goToSchedule(folder.id)">
             <div id="contenedor">
               <div matListItemTitle>{{folder.name}}</div>
               <div matListItemLine>{{folder.updated | date}}</div>
