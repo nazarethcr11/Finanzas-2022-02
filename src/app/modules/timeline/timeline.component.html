@@ -1,3 +1,10 @@
+<mat-toolbar color="primary">
+  <h2>App</h2>
+  <div class="mat-spacer"></div>
+  <!-- App Options -->
+  <a mat-button [routerLink]="'/home_calculator'">Home</a>
+  <a mat-button [routerLink]="'/registros'">Registros</a>
+</mat-toolbar>
 <div class="main-div">
   <mat-card class="example-card">
     <mat-card-header>
@@ -116,7 +123,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions class="button-final">
-      <button mat-button>Guardar</button>
+      <button mat-button class="button-final-final">Guardar</button>
     </mat-card-actions>
   </mat-card>
 </div>

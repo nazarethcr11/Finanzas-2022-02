@@ -6,9 +6,10 @@
   align-content: center;
   text-align: center;
 }
-.mat-button{
+.button-final-final{
   background: #3f51b5;
-  width: 60%;
+  width: 30%;
+  color:white;
 }
 .main-div{
   padding-top: 1vh;
@@ -42,4 +43,7 @@ table {
 
 #contenedor > div {
   width: 50%;
+}
+.mat-spacer{
+  flex: 1 1 auto;
 }
