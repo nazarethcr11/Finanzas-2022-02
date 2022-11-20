@@ -93,6 +93,27 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <div class="extradiv">
+        <p><b>Resultados Totales</b></p>
+      <div id="contenedor">
+        <div>
+          <p>Total Intereses: </p>
+          <p>Total Amortizacion del capital: </p>
+          <p>Total Seguro contra todo riesgo:</p>
+          <p>Total Comisiones periodicas:</p>
+          <p>Total Recompra:</p>
+          <p>Total Desembolso:</p>
+        </div>
+        <div>
+          <p>{{ Total_Intereses }}</p>
+          <p>{{ Total_Amortizacion_del_capital }}</p>
+          <p>{{ Total_Seguro_contra_todo_riesgo }}</p>
+          <p>{{ Total_Comisiones_periodicas }}</p>
+          <p>{{ Total_Recompra }}</p>
+          <p>{{ Total_Desembolso }}</p>
+        </div>
+      </div>
+      </div>
     </mat-card-content>
     <mat-card-actions class="button-final">
       <button mat-button>Guardar</button>

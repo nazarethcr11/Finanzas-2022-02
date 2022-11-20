@@ -22,10 +22,6 @@ export interface Pagos_Leasing {
   flujo_con_igv:number;
   flujo_neto:number
 }
-export interface Results {
-  name: string;
-  valor: number;
-}
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -33,11 +29,8 @@ export interface Results {
 })
 export class TimelineComponent implements OnInit {
   displayedColumns: string[] = ['Number_table', 'fecha', 'saldo_inicial', 'interes', 'cuota', 'amortizacion', 'seguro', 'costos_y_gastos', 'recompra', 'saldo_final', 'depreciacion', 'ahorro_tributario', 'igv', 'flujo_bruto', 'flujo_con_igv', 'flujo_neto'];
-  displayedColumns2: string[] = ['Resultados_totales', 'valor']
-  tabla_datos2: Results[] = []
   tabla_datos: Pagos_Leasing[] = [];
   dataSource = this.tabla_datos;
-  dataSource2 = this.tabla_datos2;
 
   IGV: number = 18 / 100;
   //Datos del préstamo
@@ -208,8 +201,15 @@ export class TimelineComponent implements OnInit {
       this.Total_Seguro_contra_todo_riesgo += seguro[i]
       this.Total_Comisiones_periodicas += costos_y_gastos[i]
     }
-    //contador final
+    //fixeando decimales
     this.Total_Desembolso = this.Total_Intereses + this.Total_Amortizacion_del_capital + this.Total_Recompra + this.Total_Seguro_contra_todo_riesgo + this.Total_Comisiones_periodicas
+    this.Total_Intereses = Number(this.Total_Intereses.toFixed(2))
+    this.Total_Amortizacion_del_capital = Number(this.Total_Amortizacion_del_capital.toFixed(2))
+    this.Total_Recompra = Number(this.Total_Recompra.toFixed(2))
+    this.Total_Seguro_contra_todo_riesgo = Number(this.Total_Seguro_contra_todo_riesgo.toFixed(2))
+    this.Total_Comisiones_periodicas = Number(this.Total_Comisiones_periodicas.toFixed(2))
+    //contador final
+    this.Total_Desembolso =Number(this.Total_Desembolso.toFixed(2))
     //for para fixear datos
     for (let i = 0; i < this.Resultado_total_cuotas + 1; i++) {
 
@@ -251,11 +251,5 @@ export class TimelineComponent implements OnInit {
       })
 
     }
-    this.tabla_datos2 = [
-      {name: "", valor: this.Total_Seguro_contra_todo_riesgo},
-
-    ];
-
-
   }
 }
