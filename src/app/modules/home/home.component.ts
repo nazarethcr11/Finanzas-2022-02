@@ -29,6 +29,8 @@ export class HomeComponent implements AfterViewInit {
       this.isLoading = true;
       this.userService.authenticate(this.userFormGroup.get("username")?.value, this.userFormGroup.get("password")?.value).subscribe(
         (response) => {
+          // local storage
+          localStorage.setItem('id', String(response.id));
           this.route.navigate(['/home_calculator']);
           this.isLoading=false;
         },

@@ -3,9 +3,14 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import {ActivatedRoute} from "@angular/router";
+import {ScheduleService} from "../../services/schedule.service";
+import {RecordScheduleService} from "../../services/recordSchedule.service";
+import {SchedulePost} from "../../models/schedulePost";
+import {RecordSchedulePost} from "../../models/recordSchedulePost";
+import {DatePipe} from "@angular/common";
 
 export interface Pagos_Leasing {
-  Number_table: number;
+  number_table: number;
   fecha: string;
   saldo_inicial: number;
   interes: number;
@@ -25,11 +30,12 @@ export interface Pagos_Leasing {
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  styleUrls: ['./timeline.component.css'],
+  providers: [DatePipe]
 })
 export class TimelineComponent implements OnInit {
   displayedColumns: string[] = ['Number_table', 'fecha', 'saldo_inicial', 'interes', 'cuota', 'amortizacion', 'seguro', 'costos_y_gastos', 'recompra', 'saldo_final', 'depreciacion', 'ahorro_tributario', 'igv', 'flujo_bruto', 'flujo_con_igv', 'flujo_neto'];
-  tabla_datos: Pagos_Leasing[] = [];
+  tabla_datos: SchedulePost[] = [];
   dataSource = this.tabla_datos;
 
   IGV: number = 18 / 100;
@@ -75,7 +81,9 @@ export class TimelineComponent implements OnInit {
   Total_Desembolso: number = 0
 
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService,
+              private recordScheduleService: RecordScheduleService, private datePipe: DatePipe) {
+
   }
 
   ngOnInit(): void {
@@ -230,7 +238,7 @@ export class TimelineComponent implements OnInit {
       //'N', 'fecha', 'saldo_inicial', 'interes', 'cuota', 'amortizacion', 'seguro', 'costos_y_gastos'
       //'recompra','saldo_final','depreciacion','ahorro_tributario','igv','flujo_bruto','flujo_con_igv','flujo_neto'
       this.tabla_datos.push({
-        Number_table: mes[i],
+        number_table: mes[i],
         fecha: formattedDate,
         interes: interes[i],
         ahorro_tributario: ahorro_tributario[i],
@@ -252,8 +260,38 @@ export class TimelineComponent implements OnInit {
   }
 
   guardar(){
+
     this.tabla_datos.forEach(element => {
-      console.log(element)
+
+      this.scheduleService.create(element).subscribe(
+        (response:any) => {
+          if(element.number_table == 0){
+            // date now string
+            let date = new Date()
+            let dateString = this.datePipe.transform(date, 'yyyy-MM-dd')!!;
+            let recordSchedulePostModel: RecordSchedulePost = {
+              usuarioid: Number(localStorage.getItem('id')),
+              total_intereses: this.Total_Intereses,
+              total_amortizacion: this.Total_Amortizacion_del_capital,
+              total_seguro: this.Total_Seguro_contra_todo_riesgo,
+              comisiones: this.Total_Comisiones_periodicas,
+              recompra: this.Total_Recompra,
+              desembolso: this.Total_Desembolso,
+              initialScheduleid: response.id,
+              finalScheduleid: response.id + this.tabla_datos.length - 1,
+              fecha: dateString,
+
+            }
+            this.recordScheduleService.create(recordSchedulePostModel).subscribe(
+              (response:any) => {
+                console.log(response)
+              }
+            );
+
+          }
+          console.log(response.id);
+        }
+      );
     });
   }
 }
