@@ -1,14 +1,16 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
+import {User} from "../models/user";
+import {UserPost} from "../models/userPost";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UserService {
 
   // Endpoint
-  basePath = 'https://full-stack-social-app-api.herokuapp.com/api/v1/users/auth';
+  basePath = 'https://finanzas-backend.herokuapp.com/api/v1/usuarios';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,6 +37,25 @@ export class UsersService {
     return throwError(() => new Error('Something happened with request, please try again later'));
   }
 
+  authenticate(username: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.basePath}/authenticate/${username}/${password}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
 
+  create(user: UserPost): Observable<UserPost> {
+    return this.http.post<UserPost>(`${this.basePath}/create`, JSON.stringify(user), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
+
+  delete(id: any) {
+    return this.http.delete(`${this.basePath}/delete/${id}`, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError));
+  }
 
 }
