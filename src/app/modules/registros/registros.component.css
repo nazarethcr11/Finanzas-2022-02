@@ -1,0 +1,38 @@
+.example-card {
+  width: 70%;
+}
+.card-body{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.main-div{
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e0ecf4;
+}
+.description{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.botones_contenedor{
+  width: 100%;
+  border-style: solid;
+}
+#contenedor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#contenedor > div {
+  width: 50%;
+}
+.mat-spacer{
+  flex: 1 1 auto;
+}

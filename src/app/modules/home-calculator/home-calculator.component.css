@@ -28,7 +28,11 @@
   align-content: center;
   text-align: center;
 }
-.mat-button{
+.button-final-final{
   background: #3f51b5;
+  color: #e0ecf4;
   width: 60%;
+}
+.mat-spacer{
+  flex: 1 1 auto;
 }

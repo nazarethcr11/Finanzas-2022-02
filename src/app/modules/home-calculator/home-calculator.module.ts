@@ -12,6 +12,7 @@ import {CommonModule} from "@angular/common";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatIconModule} from "@angular/material/icon";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 const homeCalculatorRoutes: Route[] = [
   {
@@ -24,22 +25,23 @@ const homeCalculatorRoutes: Route[] = [
   declarations: [
     HomeCalculatorComponent,
   ],
-  imports: [
-    RouterModule.forChild(homeCalculatorRoutes),
-    FormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule,
-    CommonModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
+    imports: [
+        RouterModule.forChild(homeCalculatorRoutes),
+        FormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatOptionModule,
+        MatSelectModule,
+        CommonModule,
+        MatDatepickerModule,
+        MatIconModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatToolbarModule,
 
-  ]
+    ]
 })
 
 export class HomeCalculatorModule
