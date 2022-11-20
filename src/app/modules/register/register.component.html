@@ -11,10 +11,7 @@
             Names is <strong>required</strong>
           </mat-error>
           <mat-error *ngIf="userFormGroup.get('names')?.hasError('minlength')">
-            Names must be at least <strong>6</strong> characters long
-          </mat-error>
-          <mat-error *ngIf="userFormGroup.get('names')?.hasError('maxlength')">
-            Names must be at most <strong>50</strong> characters long
+            Names must be at least <strong>2</strong> characters long
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -26,9 +23,6 @@
           <mat-error *ngIf="userFormGroup.get('username')?.hasError('minlength')">
             Username must be at least <strong>2</strong> characters long
           </mat-error>
-          <mat-error *ngIf="userFormGroup.get('username')?.hasError('maxlength')">
-            Username must be at most <strong>10</strong> characters long
-          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
@@ -37,10 +31,7 @@
             Password is <strong>required</strong>
           </mat-error>
           <mat-error *ngIf="userFormGroup.get('password')?.hasError('minlength')">
-            Password must be at least <strong>6</strong> characters long
-          </mat-error>
-          <mat-error *ngIf="userFormGroup.get('password')?.hasError('maxlength')">
-            Password must be at most <strong>50</strong> characters long
+            Password must be at least <strong>2</strong> characters long
           </mat-error>
         </mat-form-field>
       </form>

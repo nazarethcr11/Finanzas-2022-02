@@ -250,4 +250,8 @@ export class TimelineComponent implements OnInit {
 
     }
   }
+
+  guardar(){
+    
+  }
 }

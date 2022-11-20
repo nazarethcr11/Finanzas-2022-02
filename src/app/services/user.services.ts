@@ -38,7 +38,7 @@ export class UserService {
   }
 
   authenticate(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.basePath}/authenticate/${username}/${password}`, this.httpOptions)
+    return this.http.get<User>(`${this.basePath}/authenticate/${username}/${password}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError));
