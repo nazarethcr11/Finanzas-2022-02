@@ -150,13 +150,13 @@ export class TimelineComponent implements OnInit {
     var flujo_con_igv = [];
     var flujo_neto = [];
 
+    var frecuencia:number= this.Dato_fecuencia_pago/30
 
     for (let i = 0; i < this.Resultado_total_cuotas + 1; i++) {
       mes[i] = i;
       var fecha_aux = new Date(this.Dato_fecha);
-      fecha_aux.setMonth(fecha_aux.getMonth() + i);
-      fecha[i] = fecha_aux;
       if (i == 0) {
+        fecha[i] = fecha_aux;
         saldo_inicial[0] = 0
         interes[0] = 0
         cuota[0] = 0
@@ -172,6 +172,8 @@ export class TimelineComponent implements OnInit {
         flujo_con_igv[0] = this.Resultado_monto_leasing
         flujo_neto[0] = this.Resultado_monto_leasing
       } else if (i != 0) {
+        fecha_aux.setMonth(fecha_aux.getMonth() + (frecuencia*(i-1)));
+        fecha[i] = fecha_aux;
         saldo_inicial[i] = saldo_final[i - 1]
         interes[i] = saldo_inicial[i] * this.Resultado_TEP
         amortizacion[i] = this.Resultado_monto_leasing / this.Resultado_total_cuotas
