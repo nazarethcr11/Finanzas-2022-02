@@ -56,8 +56,6 @@ export class TimelineComponent implements OnInit {
   Gasto_comision_periodica: number = 0;
   Gasto_seguro_riesgo: number = 0;
   //Del costo de oportunidad
-  Oportunidad_tasa_ks: number = 0;
-  Oportunidad_tasa_wacc: number = 0;
 
   // Resultados varibles
   Resultado_IGV: number = 0;
@@ -100,8 +98,6 @@ export class TimelineComponent implements OnInit {
       this.Coste_comision_activacion = Number(params.comisionActivacion)
       this.Gasto_comision_periodica = Number(params.comisionPeriodica)
       this.Gasto_seguro_riesgo = Number(params.seguroRiesgo / 100)
-      this.Oportunidad_tasa_ks = Number(params.tasaDescuentoKs / 100)
-      this.Oportunidad_tasa_wacc = Number(params.tasaDescuentoWacc / 100)
     })
     this.actualizarVariables()
     this.creartabladedatos()
